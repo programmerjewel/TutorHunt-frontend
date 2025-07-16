@@ -35,6 +35,7 @@ const LanguageCategory = () => {
               <img src={category.logo} className='' alt="" />
               <div>
                 <h3 className='uppercase font-extrabold text-lg'>{category.title}</h3>
+                <p><span>{}</span>tutors</p>
                 <span className='text-sm'>Explore ➔</span>
               </div>
             </div>

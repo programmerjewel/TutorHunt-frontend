@@ -5,6 +5,9 @@ import Home from "../pages/Home";
 import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 import UpdateProfile from "../pages/Auth/UpdateProfile";
+import AddTutor from "../pages/AddTutor";
+import TutorDetails from "../pages/TutorDetails";
+import FindTutors from "../pages/FindTutors";
 
 const route = createBrowserRouter([
   {
@@ -15,6 +18,18 @@ const route = createBrowserRouter([
       {
         path: '/',
         element: <Home/>,
+      },
+      {
+        path: '/add-tutor',
+        element: <AddTutor/>
+      },
+      {
+        path: '/find-tutors',
+        element: <FindTutors />
+      },
+      {
+        path: '/tutors/:id',
+        element: <TutorDetails/>
       },
       {
         path: '/login',
