@@ -8,6 +8,7 @@ import chineseLogo from '../assets/icons/chinesetutor.svg'
 import arabicLogo from '../assets/icons/arabictutor.svg'
 import japaneseLogo from '../assets/icons/japanesetutor.svg'
 import portugeseLogo from '../assets/icons/portugesetutor.svg'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -24,7 +25,15 @@ const LanguageCategory = () => {
     { title: "Japanese tutors", logo: japaneseLogo, path: "japanese" },
     { title: "Portuguese tutors", logo: portugeseLogo, path: "portuguese" },
   ];
+
+  const navigate = useNavigate();
   
+  //handle language category click
+  const handleClick = (path) =>{
+    navigate(`/find-tutors/${path}`)
+  }
+
+
   return (
     <section className='py-12 w-11/12 mx-auto'>
       <h2 className='text-center font-extrabold text-4xl text-violet-600 mb-6'>Explore Tutors by Language</h2>
@@ -36,7 +45,7 @@ const LanguageCategory = () => {
               <div>
                 <h3 className='uppercase font-extrabold text-lg'>{category.title}</h3>
                 <p><span>{}</span>tutors</p>
-                <span className='text-sm'>Explore ➔</span>
+                <button onClick={()=>handleClick(category.path)} className='text-sm'>Explore ➔</button>
               </div>
             </div>
         ))

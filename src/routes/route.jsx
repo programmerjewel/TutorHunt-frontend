@@ -8,6 +8,9 @@ import UpdateProfile from "../pages/Auth/UpdateProfile";
 import AddTutor from "../pages/AddTutor";
 import TutorDetails from "../pages/TutorDetails";
 import FindTutors from "../pages/FindTutors";
+import TutorsByLanguage from "../pages/TutorsByLanguage";
+import MyTutors from "../pages/MyTutors";
+import BookedTutors from "../pages/BookedTutors";
 
 const route = createBrowserRouter([
   {
@@ -26,6 +29,18 @@ const route = createBrowserRouter([
       {
         path: '/find-tutors',
         element: <FindTutors />
+      },
+      {
+        path: '/find-tutors/:category',
+        element: <TutorsByLanguage/>,
+      },
+      {
+        path: '/my-tutors',
+        element: <MyTutors/>,
+      },
+      {
+        path: '/booked-tutors',
+        element: <BookedTutors/>,
       },
       {
         path: '/tutors/:id',

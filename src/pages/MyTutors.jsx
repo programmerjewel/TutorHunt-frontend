@@ -1,0 +1,59 @@
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../context/Auth/AuthContext";
+import { TiEdit } from "react-icons/ti";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+
+const MyTutors = () => {
+  const [myTutors, setMyTutors] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    fetch(`http://localhost:4000/find-tutors?email=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setMyTutors(data));
+  }, [user?.email]);
+  return (
+    <main className="w-11/12 mx-auto">
+      <h2 className="text-center font-bold text-4xl my-4">My Tutors</h2>
+      {myTutors.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-xl">You haven't added any tutor yet.</p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Language</th>
+                <th>Description</th>
+                <th>Review</th>
+                <th>Delete</th>
+                <th>Update</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myTutors.map((tutor, index) => (
+                <tr key={tutor._id}>
+                  <th>{index + 1}</th>
+                  <td>{tutor.name}</td>
+                  <td><img src={tutor.image} className="w-15 rounded-lg" alt="" /></td>
+                  <td>{tutor.language}</td>
+                  <td>{(tutor.description).slice(0, 60)}...</td>
+                  <td>{tutor.review}</td>
+                  <td><TiEdit /></td>
+                  <td><RiDeleteBin6Line /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </main>
+  );
+};
+
+export default MyTutors;
