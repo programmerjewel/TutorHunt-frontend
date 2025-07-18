@@ -6,7 +6,7 @@ import axios from "axios";
 
 const AddTutor = () => {
   const {user} = useContext(AuthContext);
-  console.log(user)
+  
   const handleSubmit = async e =>{
     e.preventDefault();
     const form = e.target;
@@ -19,8 +19,9 @@ const AddTutor = () => {
     const description = form.description.value;
 
     const tutorData = {name, email, image, language, price, review, description};
+    console.log(tutorData);
     try{
-      await axios.post('http://localhost:3000/tutors', tutorData);
+      await axios.post('http://localhost:4000/tutors', tutorData);
       alert('data added successfully!');
       form.reset();
     }
@@ -28,8 +29,6 @@ const AddTutor = () => {
       console.error(err);
       alert('Something went wrong!');
     }
-    
-    
   }
 
   return (
@@ -47,7 +46,8 @@ const AddTutor = () => {
                 type="text"
                 className="input w-full"
                 name="name"
-                // defaultValue={user?.displayName}
+                disabled={true}
+                defaultValue={user?.displayName}
               />
             </div>
             <div>
@@ -56,7 +56,8 @@ const AddTutor = () => {
                 type="email"
                 className="input w-full"
                 name="email"
-                // defaultValue={user?.email}
+                disabled={true}
+                defaultValue={user?.email}
               />
             </div>
           </div>

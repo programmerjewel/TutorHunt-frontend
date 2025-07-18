@@ -7,7 +7,7 @@ import axios from "axios";
 const TutorDetails = () => {
   const {user} = useContext(AuthContext);
   const {id} = useParams();
-  const [tutor, setTutor] = useState([]);
+  const [tutor, setTutor] = useState({});
   const navigate = useNavigate();
 
 
@@ -42,21 +42,21 @@ const handleBookedTutor = async () =>{
       <h2 className='text-center text-4xl font-bold mb-6'>Details</h2>
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold mb-4">{tutor.name}</h2>
+        
         <img 
           src={tutor.image} 
           alt={`Profile of ${tutor.name}`} 
           className="w-32 h-32 rounded-full object-cover mb-4"
         />
-        <p className="text-lg mb-2">
+        <p className="text-lg">{tutor.language}</p>
+        <p className="text-lg">
           <span className="font-medium">Price:</span> {tutor.price}$
         </p>
         <p className="text-lg">
           <span className="font-medium">Rating:</span> {tutor.review} / 5
         </p>
-        <p className="mt-4 text-gray-700">{tutor.details}</p>
-        <p className="my-2 text-gray-600">
-          <span className="font-medium">Experience:</span> {tutor.experience}
-        </p>
+        <p className="mt-4 text-gray-700">{tutor.description}</p>
+
         <Link className="btn btn-neutral" onClick={handleBookedTutor}>Book Tutor</Link>
       </div>
     </main>
