@@ -12,6 +12,7 @@ import TutorsByLanguage from "../pages/TutorsByLanguage";
 import MyTutors from "../pages/MyTutors";
 import BookedTutors from "../pages/BookedTutors";
 import UpdateTutor from "../pages/UpdateTutor";
+import PrivateRoute from "./PrivateRoute";
 
 const route = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ const route = createBrowserRouter([
       },
       {
         path: '/add-tutor',
-        element: <AddTutor/>
+        element: <PrivateRoute><AddTutor/></PrivateRoute>
       },
       {
         path: '/find-tutors',
@@ -37,19 +38,19 @@ const route = createBrowserRouter([
       },
       {
         path: '/my-tutors',
-        element: <MyTutors/>,
+        element: <PrivateRoute><MyTutors/></PrivateRoute>,
       },
       {
         path: '/booked-tutors',
-        element: <BookedTutors/>,
+        element: <PrivateRoute><BookedTutors/></PrivateRoute>,
       },
       {
         path: '/update-tutor/:id',
-        element: <UpdateTutor/>,
+        element: <PrivateRoute><UpdateTutor/></PrivateRoute>,
       },
       {
         path: '/tutors/:id',
-        element: <TutorDetails/>
+        element: <PrivateRoute><TutorDetails/></PrivateRoute>,
       },
       {
         path: '/login',
@@ -61,7 +62,7 @@ const route = createBrowserRouter([
       },
       {
         path: 'update-profile',
-        element: <UpdateProfile />
+        element: <PrivateRoute><UpdateProfile /></PrivateRoute>,
       }
     ]
     
