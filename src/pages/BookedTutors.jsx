@@ -1,23 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/Auth/AuthContext";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure"; // ✅ import the custom hook
 
 const BookedTutors = () => {
-  
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure(); // ✅ get secure axios instance
+
   const [tutors, setTutors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [reviewingId, setReviewingId] = useState(null);
 
-  
   useEffect(() => {
     const fetchBookedTutors = async () => {
       try {
         setLoading(true);
         const email = user?.email;
-        const response = await axios.get(
-          `http://localhost:4000/booked-tutors?email=${email}`
+        const response = await axiosSecure.get(
+          `/booked-tutors?email=${email}` // ✅ secured GET request
         );
         setTutors(response.data);
       } catch (error) {
@@ -27,34 +27,35 @@ const BookedTutors = () => {
         setLoading(false);
       }
     };
-    
-    fetchBookedTutors();
-  }, [user?.email]);
 
-  
+    if (user?.email) {
+      fetchBookedTutors();
+    }
+  }, [user?.email, axiosSecure]);
+
   const handleReview = async (tutorId) => {
     try {
       setReviewingId(tutorId);
-      
-      const response = await axios.patch(
-        `http://localhost:4000/tutors/${tutorId}/review?email=${user.email}`
+
+      const response = await axiosSecure.patch(
+        `/tutors/${tutorId}/review?email=${user.email}` // ✅ secured PATCH request
       );
 
       if (response.data.success) {
-        toast.success('Review submitted successfully');
-        
-        setTutors(prevTutors => 
-          prevTutors.map(tutor => 
-            tutor.tutorId === tutorId 
-              ? { ...tutor, hasReviewed: true } 
+        toast.success("Review submitted successfully");
+
+        setTutors((prevTutors) =>
+          prevTutors.map((tutor) =>
+            tutor.tutorId === tutorId
+              ? { ...tutor, hasReviewed: true }
               : tutor
           )
         );
       } else {
-        toast.error(response.data.message || 'Failed to submit review');
+        toast.error(response.data.message || "Failed to submit review");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || 'Error submitting review');
+      toast.error(error.response?.data?.message || "Error submitting review");
       console.error("Review error:", error);
     } finally {
       setReviewingId(null);
@@ -70,11 +71,10 @@ const BookedTutors = () => {
     );
   }
 
-  
   return (
     <main className="my-10 w-11/12 mx-auto">
       <h2 className="text-center font-bold text-3xl mb-8">My Booked Tutors</h2>
-      
+
       {tutors.length === 0 ? (
         <div className="text-center py-10">
           <p className="text-xl">You haven't booked any tutor yet.</p>
@@ -84,18 +84,18 @@ const BookedTutors = () => {
           {tutors.map((tutor) => (
             <div className="border p-4 rounded-lg" key={tutor._id}>
               <h3 className="font-bold text-lg mb-2">{tutor.tutorName}</h3>
-              <img 
-                src={tutor.image} 
-                alt={tutor.tutorName} 
+              <img
+                src={tutor.image}
+                alt={tutor.tutorName}
                 className="w-full h-40 object-cover mb-2 rounded"
               />
               <p className="mb-1">${tutor.price}/hour</p>
               <p className="mb-3">{tutor.language}</p>
-              <button 
+              <button
                 onClick={() => handleReview(tutor.tutorId)}
                 disabled={tutor.hasReviewed || reviewingId === tutor.tutorId}
                 className={`btn btn-sm w-full ${
-                  tutor.hasReviewed ? 'btn-disabled' : 'btn-primary'
+                  tutor.hasReviewed ? "btn-disabled" : "btn-primary"
                 }`}
               >
                 {reviewingId === tutor.tutorId ? (

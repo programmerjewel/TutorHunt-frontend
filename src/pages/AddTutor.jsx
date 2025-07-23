@@ -1,33 +1,65 @@
 
 
-import { useContext} from "react";
+import { useContext, useState} from "react";
 import AuthContext from "../context/Auth/AuthContext";
-import axios from "axios";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const AddTutor = () => {
   const {user} = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+  const [errors, setErrors] = useState({});
   
+  const validateForm = (formData) => {
+    const newErrors = {};
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+
+    if (!formData.image || !urlRegex.test(formData.image)) {
+      newErrors.image = "Please enter a valid image URL";
+    }
+
+    if (formData.language === "Select") {
+      newErrors.language = "Please select a language";
+    }
+
+    if (!formData.price || formData.price <= 0) {
+      newErrors.price = "Price must be a positive number";
+    }
+
+    if (!formData.description || formData.description.length < 50) {
+      newErrors.description = "Description must be at least 50 characters";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async e =>{
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const image = form.image.value;
-    const language = form.language.value;
-    const price = form.price.value;
-    const review = parseInt(form.review.value);
-    const description = form.description.value;
+    const formData = {
+      name: form.name.value,
+      email: form.email.value,
+      image: form.image.value,
+      language: form.language.value,
+      price: parseFloat(form.price.value),
+      review: parseInt(form.review.value),
+      description: form.description.value
+    }
+    
+    if (!validateForm(formData)) {
+      return;
+    }
 
-    const tutorData = {name, email, image, language, price, review, description};
-    console.log(tutorData);
     try{
-      await axios.post('http://localhost:4000/tutors', tutorData);
-      alert('data added successfully!');
+      await axiosSecure.post('/tutors', formData);
+      toast.success('data added successfully!');
       form.reset();
+      setErrors({});
     }
     catch(err){
       console.error(err);
-      alert('Something went wrong!');
+      toast.error('Something went wrong!');
     }
   }
 
@@ -67,15 +99,16 @@ const AddTutor = () => {
               <label className="label">Tutor's Image URL</label>
               <input
                 type="url"
-                className="input w-full"
+                className={`input w-full ${errors.image ? 'input-error' : ''}`}
                 placeholder="https://example.com/poster.jpg"
                 name="image"
               />
+              {errors.image && <span className="text-red-500 text-sm">{errors.image}</span>}
             </div>
             <div>
               <label className="label">Language</label>
               <select
-                className="select w-full"
+                className={`select w-full ${errors.language ? 'select-error' : ''}`}
                 name="language"
                 defaultValue="Select"
               >
@@ -91,6 +124,7 @@ const AddTutor = () => {
                 <option value="Japanese">Japanese</option>
                 <option value="Portugese">Portugese</option>
               </select>
+              {errors.language && <span className="text-red-500 text-sm">{errors.language}</span>}
             </div>
           </div>
 
@@ -99,9 +133,11 @@ const AddTutor = () => {
               <label className="label">Price</label>
               <input
                 type="number"
-                className="input w-full"
-                placeholder="price"
+                className={`input w-full ${errors.price ? 'input-error' : ''}`}
+                placeholder="price per hour"
                 name="price"
+                min="1"
+                step="0.01"
               />
             </div>
             <div>
@@ -114,10 +150,15 @@ const AddTutor = () => {
           <div className="mt-4">
             <label className="label">Description</label>
             <textarea
-              className="textarea w-full"
+              className={`textarea w-full ${errors.description ? 'textarea-error' : ''}`}
               placeholder="Enter at least 50 characters"
               name="description"
             ></textarea>
+            {errors.description && (
+              <span className="text-red-500 text-sm">
+                {errors.description}
+              </span>
+            )}
           </div>
 
           <button

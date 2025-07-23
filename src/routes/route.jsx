@@ -26,11 +26,11 @@ const route = createBrowserRouter([
       },
       {
         path: '/add-tutor',
-        element: <PrivateRoute><AddTutor/></PrivateRoute>
+        element: <PrivateRoute><AddTutor/></PrivateRoute>,
       },
       {
         path: '/find-tutors',
-        element: <FindTutors />
+        element: <FindTutors />,
       },
       {
         path: '/find-tutors/:category',
@@ -58,7 +58,7 @@ const route = createBrowserRouter([
       },
       {
         path: '/register',
-        element: <Register/>
+        element: <Register/>,
       },
       {
         path: 'update-profile',

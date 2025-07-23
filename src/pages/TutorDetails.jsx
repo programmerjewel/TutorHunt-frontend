@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../context/Auth/AuthContext";
-import axios from "axios";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const TutorDetails = () => {
   const { user } = useContext(AuthContext);
@@ -12,36 +12,34 @@ const TutorDetails = () => {
   const [isBooking, setIsBooking] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchTutorAndBookingStatus = async () => {
       try {
-        // Fetch tutor details
-        const { data: tutorData } = await axios.get(`http://localhost:4000/tutors/${id}`);
-        console.log(tutorData)
+        
+        const { data: tutorData } = await axiosSecure.get(`/tutors/${id}`);
         setTutor(tutorData);
 
-        // Check if tutor is already booked by the user
+        
         if (user?.email) {
-          const { data: bookings } = await axios.get(
-            `http://localhost:4000/booked-tutors?email=${user.email}`
-          );
+          const { data: bookings } = await axiosSecure.get(`/booked-tutors?email=${user.email}`);
           const alreadyBooked = bookings.some(booking => booking.tutorId === id);
           setIsBooked(alreadyBooked);
         }
       } catch (err) {
-        toast.error("Failed to load tutor details", err);
+        console.error(err);
+        toast.error("Failed to load tutor details");
       } finally {
         setIsLoading(false);
       }
     };
     fetchTutorAndBookingStatus();
-  }, [id, user]);
+  }, [id, user, axiosSecure]);
 
   const handleBookedTutor = async () => {
-    if (isBooked) {
-      return;
-    }
+    if (isBooked) return;
+
     setIsBooking(true);
     try {
       const bookedTutor = {
@@ -55,15 +53,14 @@ const TutorDetails = () => {
         hasReviewed: false,
       };
 
-      await axios.post("http://localhost:4000/booked-tutors", bookedTutor);
+      await axiosSecure.post("/booked-tutors", bookedTutor);
       toast.success("Tutor booked successfully!");
       setIsBooked(true);
       navigate("/booked-tutors");
-    } 
-    catch (err) {
-      toast.error("Failed to book tutor", err);
-    } 
-    finally {
+    } catch (err) {
+      console.error(err);
+      toast.error(err.response?.data?.message || "Failed to book tutor");
+    } finally {
       setIsBooking(false);
     }
   };
@@ -89,7 +86,7 @@ const TutorDetails = () => {
       <div className="w-full md:w-4/5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div className="order-2 md:order-1">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">{tutor.name}</h2>
-          
+
           <div className="mb-6">
             <p className="text-lg mb-2">
               <span className="font-semibold">Expertise </span>in {tutor.language}
@@ -103,7 +100,7 @@ const TutorDetails = () => {
             <div className="mb-6">
               <p className="text-gray-700">{tutor.description}</p>
             </div>
-            
+
             <button
               onClick={handleBookedTutor}
               disabled={isBooking || isBooked}

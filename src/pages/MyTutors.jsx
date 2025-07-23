@@ -3,36 +3,63 @@ import AuthContext from "../context/Auth/AuthContext";
 import { TiEdit } from "react-icons/ti";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const MyTutors = () => {
   const [myTutors, setMyTutors] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    fetch(`http://localhost:4000/find-tutors?email=${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => setMyTutors(data))
-  }, [user?.email]);
+    const fetchMyTutors = async () => {
+      try {
+        setLoading(true);
+        const { data } = await axiosSecure.get(`/find-tutors?email=${user?.email}`);
+        setMyTutors(data);
+      } catch (error) {
+        console.error("Error fetching tutors:", error);
+        toast.error("Failed to load your tutors");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?.email) {
+      fetchMyTutors();
+    }
+  }, [user?.email, axiosSecure]);
 
   // Handle update
-  const handleUpdate= (id) => {
+  const handleUpdate = (id) => {
     navigate(`/update-tutor/${id}`);
   };
 
   // Handle delete
-  const handleDelete = (id) =>{
-    fetch(`http://localhost:4000/tutors/${id}`, {method: 'DELETE'})
-    .then(res=>res.json())
-    .then(data => {
-        if (data.success) {
-          // Update the UI by removing the deleted tutor
-          setMyTutors(myTutors.filter(tutor => tutor._id !== id));
-        }
-      })
-      .catch(error => console.error("Error deleting tutor:", error));
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axiosSecure.delete(`/tutors/${id}`);
+      if (data.success) {
+        toast.success("Tutor deleted successfully");
+        setMyTutors(myTutors.filter(tutor => tutor._id !== id));
+      } else {
+        toast.error(data.message || "Failed to delete tutor");
+      }
+    } catch (error) {
+      console.error("Error deleting tutor:", error);
+      toast.error(error.response?.data?.message || "Error deleting tutor");
     }
-  
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <main className="w-11/12 mx-auto">
