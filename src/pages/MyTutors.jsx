@@ -18,7 +18,7 @@ const MyTutors = () => {
       try {
         setLoading(true);
         const { data } = await axiosSecure.get(`/find-tutors?email=${user?.email}`);
-        setMyTutors(data);
+        setMyTutors(data.result);
       } catch (error) {
         console.error("Error fetching tutors:", error);
         toast.error("Failed to load your tutors");
@@ -60,7 +60,7 @@ const MyTutors = () => {
       </div>
     );
   }
-
+  console.log(myTutors)
   return (
     <main className="w-11/12 mx-auto">
       <h2 className="text-center font-bold text-4xl my-4">My Tutors</h2>

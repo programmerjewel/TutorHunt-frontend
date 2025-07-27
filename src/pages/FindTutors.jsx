@@ -1,28 +1,61 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 const FindTutors = () => {
-  // Initialize tutors as an array instead of object
   const [tutors, setTutors] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [appliedSearch, setAppliedSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [limit, setLimit] = useState(10);
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const AllTutors = async () => {
       try {
         setLoading(true);
-        const { data } = await axiosSecure.get('/find-tutors');
-        setTutors(data);
-      } catch (err) {
+        const { data } = await axiosSecure.get(
+          `/find-tutors?page=${currentPage}&limit=${limit}${appliedSearch ? `&language=${appliedSearch}` : ''}`
+        );
+        setTutors(data.result || []);
+        setTotalPages(data.totalPage || 1);
+      } 
+      catch (err) {
         console.error(err);
-      } finally {
+      } 
+      finally {
         setLoading(false);
       }
     };
 
     AllTutors();
-  }, [axiosSecure]); // Include axiosSecure in dependencies
+  }, [appliedSearch, axiosSecure, currentPage, limit]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Apply the search term and reset to page 1
+    setAppliedSearch(searchTerm);
+    setCurrentPage(1);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
+    }
+  };
+ const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  const handleLimitChange = (e) => {
+    setLimit(parseInt(e.target.value));
+    setCurrentPage(1);
+  };
 
   if (loading) {
     return (
@@ -34,7 +67,24 @@ const FindTutors = () => {
 
   return (
     <main className="my-10">
-      <h2 className="text-4xl text-center font-bold mb-6">All Available Tutors</h2>
+      <h2 className="text-4xl text-center font-bold mb-6">Find Tutors</h2>
+      <form onSubmit={handleSearch}>
+        <div className="flex justify-center">
+          <input
+            className="input"
+            type="text"
+            name="search"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyUp={handleKeyPress}
+            placeholder="Search by language"
+            aria-label="Search by language"
+            value={searchTerm}
+          />
+          <button type="submit" className="btn btn-neutral">
+            Search
+          </button>
+        </div>
+      </form>
       <div className="grid gap-6 md:grid-cols-2 grid-cols-1 w-11/12 mx-auto">
         {tutors.length > 0 ? (
           tutors.map(tutor => (
@@ -62,6 +112,63 @@ const FindTutors = () => {
           </div>
         )}
       </div>
+      <div className="flex justify-center items-center gap-2 mt-8 flex-wrap">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="btn bg-blue-300 btn-sm"
+            >
+              <FaArrowLeft /> Prev
+            </button>
+           {/* Dynamic page buttons */}
+        {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
+          const startPage = Math.max(1, currentPage - 2);
+          const page = startPage + index;
+          if (page <= totalPages) {
+            return (
+              <button
+                key={page}
+                onClick={() => handlePageChange(page)}
+                className={`btn btn-sm ${currentPage === page ? 'btn-active' : 'btn-neutral'}`}
+              >
+                {page}
+              </button>
+            );
+          }
+          return null;
+        })}
+        {/* Ellipsis and last page */}
+        {totalPages > 5 && currentPage <= totalPages - 3 && (
+          <>
+            <span>...</span>
+            <button
+              onClick={() => handlePageChange(totalPages)}
+              className={`btn btn-sm ${currentPage === totalPages ? 'btn-active' : 'btn-neutral'}`}
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="btn bg-blue-300 btn-sm"
+            >
+              <FaArrowRight/> Next
+            </button>
+            <select
+              value={limit}
+              onChange={handleLimitChange}
+              className="select select-bordered w-40"
+            >
+              {[5, 10, 15, 20].map(option => (
+                <option key={option} value={option}>
+                  {option} per page
+                </option>
+              ))}
+            </select>
+          </div>
+          
     </main>
   );
 };

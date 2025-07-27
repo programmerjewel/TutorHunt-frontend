@@ -44,7 +44,6 @@ const LanguageCategory = () => {
               <img src={category.logo} className='' alt="" />
               <div>
                 <h3 className='uppercase font-extrabold text-lg'>{category.title}</h3>
-                <p><span>{}</span>tutors</p>
                 <button onClick={()=>handleClick(category.path)} className='text-sm'>Explore ➔</button>
               </div>
             </div>
