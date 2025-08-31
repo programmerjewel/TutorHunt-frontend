@@ -90,11 +90,11 @@ const FindTutors = () => {
       <div className="grid gap-6 md:grid-cols-2 grid-cols-1 w-11/12 mx-auto">
         {tutors.length > 0 ? (
           tutors.map(tutor => (
-            <div key={tutor._id} className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-sm flex items-center p-3">
+            <div key={tutor._id} className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-sm flex items-center gap-6 p-3">
               <div className="w-2/5">
                 <img 
                   src={tutor.image} 
-                  className="aspect-square object-cover rounded-sm h-40" 
+                  className="w-full aspect-square object-cover rounded-sm" 
                   alt={tutor.name} 
                 />
                 <h3 className="font-bold text-lg mt-2">{tutor.name}</h3>

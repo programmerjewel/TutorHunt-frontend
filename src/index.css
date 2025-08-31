@@ -15,4 +15,5 @@ html{
 }
 body{
   font-family: "Host Grotesk", sans-serif;
+  overflow-y: auto;
 }
