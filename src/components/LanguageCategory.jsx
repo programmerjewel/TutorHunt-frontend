@@ -36,15 +36,15 @@ const LanguageCategory = () => {
 
   return (
     <section className='py-12 w-11/12 mx-auto'>
-      <h2 className='text-center font-extrabold text-4xl text-violet-600 mb-6'>Explore Tutors by Language</h2>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
+      <h2 className='font-black text-4xl text-black/85 dark:text-gray-100 mb-6 text-center'>Explore <span className='text-violet-dark dark:text-violet-light'>Tutors</span> by Language</h2>
+      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4'>
         {
           categories.map((category, index)=>(
-            <div key={index} className='border border-gray-200 p-3 rounded-sm flex gap-1.5'>
-              <img src={category.logo} className='' alt="" />
+            <div key={index} className='bg-gray-50/30 border border-gray-200 dark:border-gray-600 dark:bg-gray-800 p-4 rounded-sm flex items-center gap-3'>
+              <img src={category.logo} className='p-1 w-8 h-8 aspect-square bg-violet-300 rounded-full' alt="" />
               <div>
-                <h3 className='uppercase font-extrabold text-lg'>{category.title}</h3>
-                <button onClick={()=>handleClick(category.path)} className='text-sm'>Explore ➔</button>
+                <h3 className='font-extrabold text-xl'>{category.title}</h3>
+                <button onClick={()=>handleClick(category.path)} className='text-sm font-semibold text-violet-dark dark:text-violet-light cursor-pointer hover:text-violet-light'>Explore ➔</button>
               </div>
             </div>
         ))

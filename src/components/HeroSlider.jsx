@@ -2,31 +2,40 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-
-
-
 import { Link } from "react-router-dom";
+import img1 from '../assets/img/bannerimg1.webp'
+import img2 from '../assets/img/bannerimg2.webp'
+import img3 from '../assets/img/bannerimg3.webp'
+import img4 from '../assets/img/bannerimg4.webp'
+
+
 
 const HeroSection = () => {
   const slides = [
     {
-      background: 'https://images.pexels.com/photos/392018/pexels-photo-392018.jpeg',
-      headline: "Unlock Your Learning Potential with TutorFlow",
+      background: img1,
+      headline: "Unlock Your Learning Potential with TutorHunt",
       subheadline: "Connect with expert tutors worldwide and master any subject.",
       cta: "Find Your Tutor",
     },
     {
-      background: 'https://images.pexels.com/photos/8828615/pexels-photo-8828615.jpeg',
+      background: img2,
       headline: "Learn Anytime, Anywhere",
       subheadline: "Book sessions and access personalized learning easily.",
       cta: "Start Learning",
     },
     {
-      background: 'https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg',
+      background: img3,
       headline: "Join a Global Learning Community",
       subheadline: "Discover tutors and grow with learners worldwide.",
       cta: "Explore Tutors",
     },
+    {
+      background: img4,
+      headline: "Join in a big community",
+      subheadline: "Learn from top native speakers acorss the world",
+      cta: "Join Now",
+    }
   ];
 
   const slideStyle = {
@@ -50,18 +59,9 @@ const HeroSection = () => {
     position: "relative",
     zIndex: 1,
     textAlign: "center",
-    padding: "20px",
+    padding: "1.25rem",
   };
 
-  const buttonStyle = {
-    padding: "10px 20px",
-    fontSize: "1.2rem",
-    backgroundColor: "#007BFF",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  };
 
   return (
     <Swiper navigation modules={[Navigation]} className="mySwiper">
@@ -72,16 +72,14 @@ const HeroSection = () => {
           >
             <div style={overlayStyle}></div>
             <div style={contentStyle}>
-              <h1 style={{ fontSize: "3rem", fontWeight: "bold", marginBottom: "1rem" }}>
+              <h1 className="font-bold text-white text-5xl">
                 {slide.headline}
               </h1>
-              <p style={{ fontSize: "1.5rem", marginBlock: "1.5rem", maxWidth: "600px", marginInline: "auto" }}>
+              <p className='my-5 text-xl'>
                 {slide.subheadline}
               </p>
               <Link to='/find-tutors'><button
-                style={buttonStyle}
-                onMouseEnter={(e) => (e.target.style.backgroundColor = "#0056b3")}
-                onMouseLeave={(e) => (e.target.style.backgroundColor = "#007BFF")}
+                className="px-4 py-3 bg-violet-dark rounded-md text-md font-medium transition-all hover:bg-violet-600"
               >
                 {slide.cta}
               </button></Link>

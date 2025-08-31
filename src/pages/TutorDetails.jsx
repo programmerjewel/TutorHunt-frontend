@@ -17,11 +17,8 @@ const TutorDetails = () => {
   useEffect(() => {
     const fetchTutorAndBookingStatus = async () => {
       try {
-        
         const { data: tutorData } = await axiosSecure.get(`/tutors/${id}`);
         setTutor(tutorData);
-
-        
         if (user?.email) {
           const { data: bookings } = await axiosSecure.get(`/booked-tutors?email=${user.email}`);
           const alreadyBooked = bookings.some(booking => booking.tutorId === id);
@@ -39,7 +36,6 @@ const TutorDetails = () => {
 
   const handleBookedTutor = async () => {
     if (isBooked) return;
-
     setIsBooking(true);
     try {
       const bookedTutor = {
@@ -98,13 +94,13 @@ const TutorDetails = () => {
               <span className="font-semibold">Total Review:</span> {tutor.review || 0}
             </p>
             <div className="mb-6">
-              <p className="text-gray-700">{tutor.description}</p>
+              <p className="text-gray-700 dark:text-gray-100">{tutor.description}</p>
             </div>
 
             <button
               onClick={handleBookedTutor}
               disabled={isBooking || isBooked}
-              className={`btn w-full md:w-auto ${isBooking || isBooked ? "btn-disabled" : "btn-primary"}`}
+              className={`btn border-none shadow-none w-full md:w-auto ${isBooking || isBooked ? "btn-disabled" : "text-white bg-violet-dark hover:bg-violet-light"}`}
             >
               {isBooking ? "Booking..." : isBooked ? "Booked" : "Book Tutor"}
             </button>

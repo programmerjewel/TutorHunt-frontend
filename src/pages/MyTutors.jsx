@@ -62,8 +62,8 @@ const MyTutors = () => {
   }
   console.log(myTutors)
   return (
-    <main className="w-11/12 mx-auto">
-      <h2 className="text-center font-bold text-4xl my-4">My Tutors</h2>
+    <main className="w-11/12 mx-auto my-10">
+      <h2 className="text-4xl text-center font-extrabold mb-6 text-black/85 dark:text-gray-100">My Tutors</h2>
       {myTutors.length === 0 ? (
         <div className="text-center py-10">
           <p className="text-xl">You haven't added any tutor yet.</p>

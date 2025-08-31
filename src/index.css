@@ -1,8 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=TikTok+Sans:opsz,wght@12..36,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap'); */
 @import "tailwindcss";
 @plugin "daisyui";
-
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@theme{
+  --color-violet-dark: #7113B9;
+  --color-orange-dark: #FF9E00;
+  --color-violet-light: #A252E0;
+  --color-orange-light: #FBC46A;
+  /* --color- */
+}
 
 body{
-  font-family: 'Tiktok Sans', sans-serif;
+  font-family: "Host Grotesk", sans-serif;
 }

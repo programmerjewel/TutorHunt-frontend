@@ -22,18 +22,20 @@ const TutorsByLanguage = () => {
   }, [category, axiosSecure]);
 
   return (
-    <>
-      <h2 className="text-center my-10 text-3xl font-bold">{formattedCategory} Tutors</h2>
-      <div className="grid grid-cols-3 gap-4">
+    <main className="my-10 w-11/12 mx-auto">
+      <h2 className="text-4xl text-center font-extrabold mb-6 text-black/85 dark:text-gray-100">{formattedCategory} Tutors</h2>
+      <div className="grid  grid-cols-2 md:grid-cols-4 gap-6">
         {tutors.map((tutor) => (
-          <div key={tutor._id} className="border border-gray-300 p-4 rounded-md">
-            <h3>{tutor.name}</h3>
-            <img src={tutor.image} className="w-30 rounded-xl shadow-2xl" alt="" />
-            <Link to={`/tutors/${tutor._id}`} className="btn btn-error">Details</Link>
+          <div key={tutor._id} className="border border-gray-200 dark:border-gray-600 p-3 rounded-md">
+            <img src={tutor.image} className="w-full h-50 object-cover rounded-md mb-4" alt="" />
+            <h3 className="font-bold text-xl">{tutor.name}</h3>
+            <p className="text-sm my-1"><span className="font-semibold">Total Reviews: </span>{tutor.review}</p>
+            <p className="text-sm mb-1"><span className="font-semibold">Price: </span>${tutor.price}/hr</p>
+            <Link to={`/tutors/${tutor._id}`} className="btn btn-wide border-none shadow-none bg-violet-dark text-white hover:bg-violet-light">Details</Link>
           </div>
         ))}
       </div>
-    </>
+    </main>
   );
 };
 

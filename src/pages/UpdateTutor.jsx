@@ -85,10 +85,10 @@ const UpdateTutor = () => {
   };
 
   return (
-    <main>
+    <main className="my-10">
       <form onSubmit={handleSubmit}>
         <fieldset className="fieldset p-4 w-11/12 mx-auto">
-          <legend className="fieldset-legend mx-auto text-3xl font-bold">
+          <legend className="fieldset-legend font-extrabold mx-auto text-4xl text-black/85 dark:text-gray-100">
             Update Tutor
           </legend>
 
@@ -159,7 +159,7 @@ const UpdateTutor = () => {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-neutral mt-6 mx-auto">
+          <button type="submit" className="btn border-none shadow-none bg-violet-dark text-white hover:bg-violet-light btn-wide mx-auto mt-6">
             Update Tutor
           </button>
         </fieldset>

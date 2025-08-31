@@ -39,6 +39,7 @@ const FindTutors = () => {
     // Apply the search term and reset to page 1
     setAppliedSearch(searchTerm);
     setCurrentPage(1);
+    setSearchTerm('');
   };
 
   const handleKeyPress = (e) => {
@@ -59,19 +60,20 @@ const FindTutors = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex flex-col gap-4 justify-center items-center h-64">
         <span className="loading loading-spinner loading-lg"></span>
+        <p>Loading...</p>
       </div>
     );
   }
 
   return (
     <main className="my-10">
-      <h2 className="text-4xl text-center font-bold mb-6">Find Tutors</h2>
+      <h2 className="text-4xl text-center font-extrabold mb-6 text-black/85 dark:text-gray-100">Find Tutors</h2>
       <form onSubmit={handleSearch}>
-        <div className="flex justify-center">
+        <div className="flex justify-center join">
           <input
-            className="input"
+            className="input mb-8"
             type="text"
             name="search"
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -80,7 +82,7 @@ const FindTutors = () => {
             aria-label="Search by language"
             value={searchTerm}
           />
-          <button type="submit" className="btn btn-neutral">
+          <button type="submit" className="btn bg-violet-dark text-white hover:bg-violet-light rounded-r-sm">
             Search
           </button>
         </div>
@@ -88,20 +90,20 @@ const FindTutors = () => {
       <div className="grid gap-6 md:grid-cols-2 grid-cols-1 w-11/12 mx-auto">
         {tutors.length > 0 ? (
           tutors.map(tutor => (
-            <div key={tutor._id} className="border bg-gray-100 rounded-lg flex gap-4 items-center p-4">
-              <div className="w-1/2">
+            <div key={tutor._id} className="border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 rounded-sm flex items-center p-3">
+              <div className="w-2/5">
                 <img 
                   src={tutor.image} 
-                  className="w-25 aspect-square object-cover rounded-md border" 
+                  className="aspect-square object-cover rounded-sm h-40" 
                   alt={tutor.name} 
                 />
                 <h3 className="font-bold text-lg mt-2">{tutor.name}</h3>
-                <p className="text-gray-600">{tutor.language}</p>
+                <p className="text-gray-600 dark:text-gray-100">{tutor.language}</p>
               </div>
-              <div className="w-1/2">
+              <div className="w-3/5">
                 <p className="mb-4 line-clamp-3">{tutor.description}</p>
                 <Link to={`/tutors/${tutor._id}`}>
-                  <button className="btn btn-neutral">Details</button>
+                  <button className="btn border-none shadow-none bg-violet-dark text-white hover:bg-violet-light">Details</button>
                 </Link>
               </div>
             </div>
@@ -116,43 +118,43 @@ const FindTutors = () => {
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className="btn bg-blue-300 btn-sm"
+              className="btn bg-violet-light text-white btn-sm"
             >
               <FaArrowLeft /> Prev
             </button>
            {/* Dynamic page buttons */}
-        {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
-          const startPage = Math.max(1, currentPage - 2);
-          const page = startPage + index;
-          if (page <= totalPages) {
-            return (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`btn btn-sm ${currentPage === page ? 'btn-active' : 'btn-neutral'}`}
-              >
-                {page}
-              </button>
-            );
-          }
-          return null;
-        })}
+          {Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
+            const startPage = Math.max(1, currentPage - 2);
+            const page = startPage + index;
+            if (page <= totalPages) {
+              return (
+                <button
+                  key={page}
+                  onClick={() => handlePageChange(page)}
+                  className={`btn btn-sm ${currentPage === page ? 'bg-violet-dark text-white' : ''}`}
+                >
+                  {page}
+                </button>
+              );
+            }
+            return null;
+          })}
         {/* Ellipsis and last page */}
-        {totalPages > 5 && currentPage <= totalPages - 3 && (
-          <>
-            <span>...</span>
-            <button
-              onClick={() => handlePageChange(totalPages)}
-              className={`btn btn-sm ${currentPage === totalPages ? 'btn-active' : 'btn-neutral'}`}
-            >
-              {totalPages}
-            </button>
-          </>
-        )}
+          {totalPages > 5 && currentPage <= totalPages - 3 && (
+            <>
+              <span>...</span>
+              <button
+                onClick={() => handlePageChange(totalPages)}
+                className={`btn btn-sm ${currentPage === totalPages ? '' : ''}`}
+              >
+                {totalPages}
+              </button>
+            </>
+          )}
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className="btn bg-blue-300 btn-sm"
+              className="btn bg-violet-light text-white btn-sm"
             >
               <FaArrowRight/> Next
             </button>
@@ -167,7 +169,7 @@ const FindTutors = () => {
                 </option>
               ))}
             </select>
-          </div>
+      </div>
           
     </main>
   );

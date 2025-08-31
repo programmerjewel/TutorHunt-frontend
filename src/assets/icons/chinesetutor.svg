@@ -1,1 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><g id="Frame 316128410"><g id="Group 316127876"><g id="Group 316127873"><g id="Group 316127871"><path id="Rectangle 4546" fill="#121117" d="M29 19h2v3h-2z"></path><path id="Rectangle 4549" fill="#121117" d="M32 19h2v3h-2z"></path><path id="Rectangle 4545" stroke="#121117" stroke-width="2" d="M27 14.81v1h4V14h1v1.81h4V14h1v17H26V14h1z"></path></g><g id="Group 316127872"><path id="Rectangle 4546_2" fill="#121117" d="M14 14h2v3h-2z"></path><path id="Rectangle 4549_2" fill="#121117" d="M17 14h2v3h-2z"></path><path id="Rectangle 4545_2" stroke="#121117" stroke-width="2" d="M12 9.81v1h4V9h1v1.81h4V9h1v17H11V9h1z"></path></g><path id="Rectangle 4550" fill="#fff" d="M9 17h15v7H9z"></path><g id="Group 316127870"><path id="Rectangle 4542" fill="#fff" stroke="#121117" stroke-width="2" d="M22 21v-1h1v19H10V20h1v2h5v-2h1v2h5z"></path><path id="Rectangle 4543" fill="#121117" d="M12 26h2v4h-2z"></path><path id="Rectangle 4547" fill="#121117" d="M15.5 26h2v4h-2z"></path><path id="Rectangle 4548" fill="#121117" d="M19 26h2v4h-2z"></path></g><path id="Vector 304" fill="#fff" stroke="#121117" stroke-width="2" d="M37 23v8.42L23.734 39H23v-8.42L36.266 23z"></path><path id="Rectangle 4551" fill="#121117" d="M7 38h4v2H7z"></path><path id="Rectangle 4552" fill="#121117" d="M36 30h4v2h-4z"></path></g></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 28.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 x="0px" y="0px" viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#231F20;}
+</style>
+<g id="Group_316127871">
+	<g id="Rectangle_4545">
+		<path class="st0" d="M36,32L36,32L36,32L36,32z"/>
+	</g>
+</g>
+<g id="Group_316127870">
+	<g id="Rectangle_4542">
+		<path class="st0" d="M38,30V13h-3v1.8h-2V13h-3v1.8h-2V13h-3v15.3l-1,0.6V19h-1V8h-3v1.8h-2V8h-3v1.8h-2V8h-3v11H9v19H7v2h17l14-8
+			h2v-2H38z M12,11.8h9V21h-3v-2h-3v2h-3V11.8z M22,38H11V23h11V38z M36,32L36,32L36,32L36,32z M36,30.8L34,32l-10,5.7v-6.5l1-0.6
+			l2-1.1l9-5.2V30.8z M36,22l-9,5.1V16.8h9V22z"/>
+		<rect x="14" y="14" class="st0" width="2" height="3"/>
+		<rect x="17" y="14" class="st0" width="2" height="3"/>
+		<rect x="32" y="19" class="st0" width="2" height="3"/>
+		<rect x="29" y="19" class="st0" width="2" height="3"/>
+	</g>
+	<g id="Rectangle_4543">
+		<rect x="12" y="26" class="st0" width="2" height="4"/>
+	</g>
+	<g id="Rectangle_4547">
+		<rect x="15.5" y="26" class="st0" width="2" height="4"/>
+	</g>
+	<g id="Rectangle_4548">
+		<rect x="19" y="26" class="st0" width="2" height="4"/>
+	</g>
+</g>
+<g id="Vector_304">
+	<path class="st0" d="M36,32L36,32L36,32L36,32z"/>
+</g>
+</svg>

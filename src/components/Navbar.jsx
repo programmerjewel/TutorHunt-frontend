@@ -1,31 +1,34 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from '../context/Auth/AuthContext'
+import AuthContext from '../context/Auth/AuthContext';
 import ThemeContext from '../context/Theme/ThemeContext';
+import logo from '/logo.svg';
+
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const  {isDark, toggleTheme} = useContext(ThemeContext);
 
-  console.log(user)
+  // console.log(user)
   const handleLogout = () => {
     logoutUser();
   };
+
   const li = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <Link className="text-base" to="/">Home</Link>
       </li>
       <li>
-        <Link to="/find-tutors">Find Tutors</Link>
+        <Link className="text-base" to="/find-tutors">Find Tutors</Link>
       </li>
       <li>
-        <Link to="/add-tutor">Add Tutor</Link>
+        <Link className="text-base" to="/add-tutor">Add Tutor</Link>
       </li>
       {
         user && <>
-                  <li><Link to="/my-tutors">My Tutors</Link></li>
-                  <li><Link to="/booked-tutors">My Booked Tutors</Link></li>
+                  <li><Link className="text-base" to="/my-tutors">My Tutors</Link></li>
+                  <li><Link className="text-base" to="/booked-tutors">My Booked Tutors</Link></li>
                 </>
       }
       
@@ -33,7 +36,7 @@ const Navbar = () => {
   );
 
   return (
-    <nav className="navbar shadow-sm sticky top-0 z-10 h-10 bg-base-100">
+    <nav className="navbar shadow-sm sticky top-0 z-10 bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -60,8 +63,8 @@ const Navbar = () => {
             {li}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          TutorHunt
+        <Link to="/" className="flex gap-1 items-center">
+          <img src={logo} className="w-6 aspect-square" alt="logo" /><span className="font-extrabold text-2xl">TutorHunt</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -77,8 +80,8 @@ const Navbar = () => {
           onChange={toggleTheme}
         />
         {/* Conditionally display "Dark" or "Light" based on isDark state */}
-        <span className="ml-2 text-sm font-medium">
-          {isDark ? 'Dark Mode' : 'Light Mode'}
+        <span className="ml-2 text-sm font-semibold">
+          {isDark ? 'Dark' : 'Light'}
         </span>
       </label>
     {

@@ -46,7 +46,7 @@ const UpdateProfile = () => {
     <main className="w-11/12 mx-auto">
       {error && <p className="text-red-500 text-center">{error}</p>}
       <form onSubmit={handleSubmit(onSubmit)} className="fieldset w-xs mx-auto">
-        <legend className="font-bold text-4xl fieldset-legend text-center py-6">
+        <legend className="fieldset-legend text-4xl text-center font-extrabold mb-6 text-black/85 dark:text-gray-100">
           Update Profile
         </legend>
 
@@ -85,7 +85,7 @@ const UpdateProfile = () => {
 
         <button
           type="submit"
-          className="btn btn-neutral mt-4"
+          className="btn border-none shadow-none bg-violet-dark text-white hover:bg-violet-light mt-4"
           disabled={isLoading}
         >
           {isLoading ? 'Updating...' : 'Update'}
