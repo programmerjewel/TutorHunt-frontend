@@ -41,7 +41,7 @@ const LanguageCategory = () => {
         {
           categories.map((category, index)=>(
             <div key={index} className='bg-gray-50/30 border border-gray-200 dark:border-gray-600 dark:bg-gray-800 p-4 rounded-sm flex items-center gap-3'>
-              <img src={category.logo} className='p-1 w-8 h-8 aspect-square bg-violet-300 rounded-full' alt="" />
+              <img src={category.logo} className='w-8 h-8 aspect-square bg-violet-100 dark:bg-violet-300 rounded-sm' alt="" />
               <div>
                 <h3 className='font-extrabold text-xl'>{category.title}</h3>
                 <button onClick={()=>handleClick(category.path)} className='text-sm font-semibold text-violet-dark dark:text-violet-light cursor-pointer hover:text-violet-light'>Explore ➔</button>

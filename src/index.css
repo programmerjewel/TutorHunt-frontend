@@ -10,7 +10,9 @@
   --color-orange-light: #FBC46A;
   /* --color- */
 }
-
+html{
+  scroll-behavior: smooth;
+}
 body{
   font-family: "Host Grotesk", sans-serif;
 }
