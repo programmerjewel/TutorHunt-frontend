@@ -2,11 +2,11 @@
 
 ## An Online Tutor Marketplace
 
-**[🚀 Live Demo](https://tutor-hub-2025.web.app)**
+**[Live Demo](https://tutor-hub-2025.web.app)**
 
 TutorHunt is a full-stack web application designed to connect students with qualified tutors from around the globe. Built with the **MERN stack**, the platform provides a dynamic and secure environment for users to find, book, and manage language tutors. Whether you're a student looking to learn a new language or a tutor aiming to share your knowledge, TutorHunt offers a seamless and intuitive experience.
 
-\<br\>
+
 
 ## ✨ Key Features
 
@@ -40,7 +40,7 @@ TutorHunt is a full-stack web application designed to connect students with qual
       * **Light/Dark Theme Toggle**: A seamless theme switching feature is implemented across the entire website for enhanced accessibility and user comfort.
       * **Responsive Design**: The website is built to be fully responsive, ensuring a great experience on any device.
 
-\<br\>
+
 
 ## 🛠️ Technologies Used
 
@@ -64,7 +64,7 @@ TutorHunt is a full-stack web application designed to connect students with qual
   * **Firebase**: Used for deployment and user authorization.
   * **NPM Packages**: Various other npm packages were used to handle specific features and secure environment variables.
 
-\<br\>
+
 
 ## 🚀 Getting Started
 
